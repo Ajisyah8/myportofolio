@@ -1,0 +1,149 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+}
+
+/*@custom-variant dark (@media (prefers-color-scheme: dark), :root:has(input.theme-controller[value=dark]:checked) &);*/
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+[data-theme="light"] {
+  --color-base-100: #f3f6f9;
+  --color-base-200: #e5ebf1;
+  --color-base-300: #d2dbe5;
+  --color-base-content: #17212d;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --color-base-100: #0f1722;
+  --color-base-200: #182231;
+  --color-base-300: #243244;
+  --color-base-content: #e7edf5;
+  color-scheme: dark;
+}
+
+
+/*:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+*/
+
+@theme {
+  --animate-marquee: marquee 10s linear infinite;
+  --animate-soft-enter: soft-enter 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  @keyframes marquee {
+    0%   { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+  }
+
+  @keyframes soft-enter {
+    0% {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, color-mix(in srgb, #7da4d6 13%, transparent) 0, transparent 30%),
+    radial-gradient(circle at 85% 15%, color-mix(in srgb, #8bb8b0 7%, transparent) 0, transparent 26%),
+    linear-gradient(180deg, #f7f9fb 0%, #edf2f6 100%),
+    var(--color-base-100);
+  color: var(--color-base-content);
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+[data-theme="dark"] body {
+  background:
+    radial-gradient(circle at top left, color-mix(in srgb, #4d79a8 18%, transparent) 0, transparent 30%),
+    radial-gradient(circle at 85% 15%, color-mix(in srgb, #4e8f88 14%, transparent) 0, transparent 26%),
+    linear-gradient(180deg, #0b1220 0%, #121b2b 100%),
+    var(--color-base-100);
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+html, body {
+  scrollbar-width: none; 
+  -ms-overflow-style: none;
+   scroll-behavior: smooth;
+   font-family: "Rethink Sans";
+}
+
+.soft-enter {
+  animation: var(--animate-soft-enter);
+}
+
+.soft-enter-delay-1 {
+  animation-delay: 80ms;
+}
+
+.soft-enter-delay-2 {
+  animation-delay: 160ms;
+}
+
+.soft-enter-delay-3 {
+  animation-delay: 240ms;
+}
+
+.soft-enter-delay-4 {
+  animation-delay: 320ms;
+}
+
+.soft-card {
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease,
+    color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.soft-card:hover {
+  box-shadow: 0 14px 32px color-mix(in srgb, var(--color-base-content) 8%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html, body {
+    scroll-behavior: auto;
+  }
+
+  .soft-enter,
+  .soft-enter-delay-1,
+  .soft-enter-delay-2,
+  .soft-enter-delay-3,
+  .soft-enter-delay-4 {
+    animation: none;
+  }
+
+  .soft-card,
+  .soft-card:hover {
+    transition: none;
+    transform: none;
+    box-shadow: none;
+  }
+}
